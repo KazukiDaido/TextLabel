@@ -7,19 +7,34 @@
 
 import SwiftUI
 
+
+
 struct ContentView: View {
+    @State private var name = ""
+    @State private var textName = ""
+    
     var body: some View {
         VStack {
-            Text("Hello, world!")
-            Text("Hello, world!")
-            Text("Hello, world!")
+            Text(textName)
+            Text(textName)
+            Text(textName)
             HStack {
-                Text("Hello, world!")
-                Text("Hello, world!")
-                Text("Hello, world!")
+                Text(textName)
+                Text(textName)
+                Text(textName)
             }
+            TextField("名前を入力", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .multilineTextAlignment(.center)
+            Button("名前変更ボタン") {
+                if name == "" {
+                    textName = "Hello world!"
+                } else {
+                    textName = name
+                }
+            }
+            
         }
-        .padding()
     }
 }
 
