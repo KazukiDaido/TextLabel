@@ -11,7 +11,9 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var name = ""
-    @State private var textName = ""
+    @State private var textName = "Hello world!"
+    
+    let fruits = ["apple", "banana", "grape", "orange", "strawberry"]
     
     var body: some View {
         VStack {
@@ -33,7 +35,11 @@ struct ContentView: View {
                     textName = name
                 }
             }
-            
+            List {
+                ForEach(0 ..< fruits.count, id: \.self) { index in
+                    Text(fruits[index])
+                }
+            }
         }
     }
 }
