@@ -12,8 +12,19 @@ import SwiftUI
 struct ContentView: View {
     @State private var name = ""
     @State private var textName = "Hello world!"
+    var textLabelApp : TextLabelApp
+    var fruits: [Fruit] {
+        textLabelApp.fruits
+    }
+
     
-    let fruits = ["apple", "banana", "grape", "orange", "strawberry"]
+    /*
+    let fruits: [Fruit] = [
+        Fruit(name: "banana", value: 100),
+        Fruit(name: "orange", value: 200),
+        Fruit(name: "grape", value: 300, sale: true)
+        ]
+     */
     
     var body: some View {
         VStack {
@@ -35,9 +46,16 @@ struct ContentView: View {
                     textName = name
                 }
             }
-            List {
+            
+           List {
                 ForEach(0 ..< fruits.count, id: \.self) { index in
-                    Text(fruits[index])
+                    HStack{
+                        Text(fruits[index].name)
+                        Text("\(fruits[index].value)円")
+                        if fruits[index].sale {
+                            Text("セール中")
+                        }
+                    }
                 }
             }
         }
@@ -46,6 +64,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView(textLabelApp: fruits)
     }
 }
