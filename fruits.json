@@ -1,0 +1,17 @@
+[
+    {
+        "name": "Banana",
+        "value": 100,
+        "sale": false,
+    },
+    {
+        "name": "Orange",
+        "value": 200,
+        "sale": false,
+    },
+    {
+        "name": "Grape",
+        "value": 300,
+        "sale": true,
+    }
+]
