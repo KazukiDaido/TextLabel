@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Fruit {
+struct Fruit: Hashable, Codable {
     var name: String
     var value: Int
     var sale: Bool

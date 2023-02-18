@@ -7,12 +7,11 @@
 
 import SwiftUI
 
-
-
 struct ContentView: View {
     @State private var name = ""
     @State private var textName = "Hello world!"
-    var fruits = TextLabelApp().fruits
+   // var fruits = TextLabelApp().fruits
+    var fruits: [Fruit] = load("fruits.json")
     
     var body: some View {
         VStack {
