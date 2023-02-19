@@ -10,10 +10,11 @@ import SwiftUI
 struct ContentView: View {
     @State private var name = ""
     @State private var textName = "Hello world!"
-   // var fruits = TextLabelApp().fruits
-    var fruits: [Fruit] = load("fruits.json")
+    var fruits = TextLabelApp().fruits
+    
     
     var body: some View {
+        
         VStack {
             Text(textName)
             Text(textName)
@@ -34,14 +35,21 @@ struct ContentView: View {
                 }
             }
             
-           List {
-                ForEach(0 ..< fruits.count, id: \.self) { index in
-                    HStack{
-                        Text(fruits[index].name)
-                        Text("\(fruits[index].value)円")
-                        if fruits[index].sale {
-                            Text("セール中")
+            NavigationView{
+                List {
+                    ForEach(0 ..< fruits.count, id: \.self) { index in
+                        NavigationLink {
+                            HStack{
+                                Text(fruits[index].name)
+                                Text("\(fruits[index].value)円")
+                                if fruits[index].sale {
+                                    Text("セール中")
+                                }
+                            }
+                        } label: {
+                            Text(fruits[index].name)
                         }
+                        
                     }
                 }
             }

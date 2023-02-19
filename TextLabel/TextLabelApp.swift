@@ -19,6 +19,8 @@ struct TextLabelApp: App {
     ]
     */
     
+    var fruits: [Fruit] = load("fruits.json")
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
