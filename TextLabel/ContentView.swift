@@ -39,13 +39,14 @@ struct ContentView: View {
                 List {
                     ForEach(0 ..< fruits.count, id: \.self) { index in
                         NavigationLink {
-                            HStack{
+                            /*HStack{
                                 Text(fruits[index].name)
                                 Text("\(fruits[index].value)円")
                                 if fruits[index].sale {
                                     Text("セール中")
                                 }
-                            }
+                            }*/
+                            FruitDetail(fruitIndex: index)
                         } label: {
                             Text(fruits[index].name)
                         }
