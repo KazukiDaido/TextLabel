@@ -10,6 +10,7 @@ import SwiftUI
 @main
 
 struct TextLabelApp: App {
+    @StateObject private var modelData = ModelData()
    
     /*
    var fruits = [
@@ -19,11 +20,11 @@ struct TextLabelApp: App {
     ]
     */
     
-    var fruits: [Fruit] = load("fruits.json")
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(modelData)
         }
     }
 }

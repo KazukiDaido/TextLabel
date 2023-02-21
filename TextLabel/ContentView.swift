@@ -10,7 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var name = ""
     @State private var textName = "Hello world!"
-    var fruits = TextLabelApp().fruits
+    //var fruits = TextLabelApp().fruits
+    @EnvironmentObject var modelData: ModelData
     
     
     var body: some View {
@@ -37,20 +38,12 @@ struct ContentView: View {
             
             NavigationView{
                 List {
-                    ForEach(0 ..< fruits.count, id: \.self) { index in
+                    ForEach(0 ..< modelData.fruits.count, id: \.self) { index in
                         NavigationLink {
-                            /*HStack{
-                                Text(fruits[index].name)
-                                Text("\(fruits[index].value)円")
-                                if fruits[index].sale {
-                                    Text("セール中")
-                                }
-                            }*/
-                            FruitDetail(fruitIndex: index)
+                            FruitDetail(fruits: modelData.fruits[index])
                         } label: {
-                            Text(fruits[index].name)
+                            Text(modelData.fruits[index].name)
                         }
-                        
                     }
                 }
             }
