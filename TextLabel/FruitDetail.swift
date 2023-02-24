@@ -10,16 +10,16 @@ import SwiftUI
 struct FruitDetail: View {
     @EnvironmentObject var modelData: ModelData
     var fruits: Fruit
-    /*var fruitIndex: Int{
-     modelData.fruits.firstIndex(where: { $0.id == fruits.id })!
-     
+    
+    var fruitIndex: Int{
+     modelData.fruits.firstIndex(where: { $0.name == fruits.name })!
      }
-     */
+     
     var body: some View {
         HStack{
-            Text(fruits.name)
-            Text("\(fruits.value)円")
-            SaleToggle()
+            Text(modelData.fruits[fruitIndex].name)
+            Text("\(modelData.fruits[fruitIndex].value)円")
+            SaleToggle(fruits: modelData.fruits[fruitIndex])
             }
         }
     }

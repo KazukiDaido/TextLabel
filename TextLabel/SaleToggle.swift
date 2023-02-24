@@ -8,19 +8,28 @@
 import SwiftUI
 
 struct SaleToggle: View {
-    @State private var flag = false
+    //@State var flag: Bool
+    @EnvironmentObject var modelData: ModelData
+    var fruits: Fruit
     
+    var fruitIndex: Int{
+     modelData.fruits.firstIndex(where: { $0.name == fruits.name })!
+     }
+   
     
     var body: some View {
-        Toggle(isOn: $flag) {
-            Text(flag ? "セール中" : "")
+        Toggle(isOn: $modelData.fruits[fruitIndex].sale) {
+            Text(modelData.fruits[fruitIndex].sale ? "セール中" : "")
         }
         .padding()
     }
 }
 
 struct SaleToggle_Previews: PreviewProvider {
+    static let modelData = ModelData()
     static var previews: some View {
-        SaleToggle()
+  
+        SaleToggle(fruits: modelData.fruits[0])
+            .environmentObject(modelData)
     }
 }
