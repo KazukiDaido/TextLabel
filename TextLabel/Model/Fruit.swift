@@ -11,9 +11,15 @@ struct Fruit: Hashable, Codable {
     var name: String
     var value: Int
     var sale: Bool
-    /*init(name: String, value: Int, sale: Bool) {
-        self.name = name
-        self.value = value
-        self.sale = sale
-    }*/
+    var key: String
 }
+    
+struct FruitData : Hashable, Codable {
+        var data: [Fruit]
+    }
+    
+    /*init(name: String, value: Int, sale: Bool) {
+     self.name = name
+     self.value = value
+     self.sale = sale
+     }*/
