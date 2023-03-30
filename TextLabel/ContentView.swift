@@ -13,6 +13,8 @@ struct ContentView: View {
     //var fruits = TextLabelApp().fruits
     @EnvironmentObject var modelData: ModelData
     
+    @State private var showingModal = false
+    
     
     var body: some View {
         
@@ -63,26 +65,40 @@ struct ContentView: View {
              modelData.fruits.remove(atOffsets: offsets)
              }
              */
-            Button{
-                print()
-            } label: {
+            Button(action: {
+                self.showingModal.toggle()
+            }) {
                 HStack{
                     Image(systemName: "plus")
                         .padding(.leading)
                     Text("新規")
                     Spacer()
+                }.sheet(isPresented: $showingModal) {
+                    ModalView()
                 }
             }
         }
     }
 }
-    
-    
-    
-    struct ContentView_Previews: PreviewProvider {
-        static let modelData = ModelData()
-        static var previews: some View {
-            ContentView()
-                .environmentObject(modelData)
-        }
+
+
+
+struct ContentView_Previews: PreviewProvider {
+    static let modelData = ModelData()
+    static var previews: some View {
+        ContentView()
+            .environmentObject(modelData)
     }
+}
+
+struct ModalView: View {
+    var body: some View {
+        Text("Modal View.")
+    }
+}
+
+struct ModalView_Previews: PreviewProvider {
+    static var previews: some View {
+        ModalView()
+    }
+}
