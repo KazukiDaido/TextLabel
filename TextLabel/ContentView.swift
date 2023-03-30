@@ -38,30 +38,42 @@ struct ContentView: View {
          }
          
          */
-        NavigationView{
-            List {
-                ForEach(0 ..< modelData.fruits.count, id: \.self) { index in
-                    NavigationLink {
-                        FruitDetail(fruits: modelData.fruits[index])
-                    } label: {
-                        Text(modelData.fruits[index].name)
+        VStack{
+            NavigationView{
+                List {
+                    ForEach(0 ..< modelData.fruits.count, id: \.self) { index in
+                        NavigationLink {
+                            FruitDetail(fruits: modelData.fruits[index])
+                        } label: {
+                            Text(modelData.fruits[index].name)
+                        }
                     }
-                }
-                .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                    Button {
-                        print()
-                    } label: {
-                        Text("削除")
+                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                        Button {
+                            print()
+                        } label: {
+                            Text("削除")
+                        }
+                        .tint(.red)
                     }
-                    .tint(.red)
+                    // .onDelete(perform: rowRemove)
                 }
-                // .onDelete(perform: rowRemove)
+            }
+            /*func rowRemove(offsets: IndexSet) {
+             modelData.fruits.remove(atOffsets: offsets)
+             }
+             */
+            Button{
+                print()
+            } label: {
+                HStack{
+                    Image(systemName: "plus")
+                        .padding(.leading)
+                    Text("新規")
+                    Spacer()
+                }
             }
         }
-        /*func rowRemove(offsets: IndexSet) {
-         modelData.fruits.remove(atOffsets: offsets)
-         }
-         */
     }
 }
     
