@@ -16,6 +16,7 @@
 		44CD006229A0B3AF009D9968 /* fruits.json in Resources */ = {isa = PBXBuildFile; fileRef = 44CD006129A0B3AF009D9968 /* fruits.json */; };
 		44CD006629A0BA04009D9968 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CD006529A0BA04009D9968 /* ModelData.swift */; };
 		44CD006A29A48E7C009D9968 /* FruitDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CD006929A48E7C009D9968 /* FruitDetail.swift */; };
+		CC42E77E29D8733F00205F39 /* AddFruit.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC42E77D29D8733F00205F39 /* AddFruit.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		44CD006129A0B3AF009D9968 /* fruits.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = fruits.json; sourceTree = SOURCE_ROOT; };
 		44CD006529A0BA04009D9968 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		44CD006929A48E7C009D9968 /* FruitDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FruitDetail.swift; sourceTree = "<group>"; };
+		CC42E77D29D8733F00205F39 /* AddFruit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFruit.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			children = (
 				44CD005E299C97ED009D9968 /* Model */,
 				44CD004C2995829D009D9968 /* TextLabelApp.swift */,
+				CC42E77D29D8733F00205F39 /* AddFruit.swift */,
 				44CD004E2995829D009D9968 /* ContentView.swift */,
 				44CD006929A48E7C009D9968 /* FruitDetail.swift */,
 				444D25F129A61A91006E0503 /* SaleToggle.swift */,
@@ -163,6 +166,7 @@
 			files = (
 				44CD0060299C9846009D9968 /* Fruit.swift in Sources */,
 				44CD006629A0BA04009D9968 /* ModelData.swift in Sources */,
+				CC42E77E29D8733F00205F39 /* AddFruit.swift in Sources */,
 				444D25F229A61A91006E0503 /* SaleToggle.swift in Sources */,
 				44CD004F2995829D009D9968 /* ContentView.swift in Sources */,
 				44CD006A29A48E7C009D9968 /* FruitDetail.swift in Sources */,
