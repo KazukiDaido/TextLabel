@@ -8,38 +8,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var name = ""
-    @State private var textName = "Hello world!"
-    //var fruits = TextLabelApp().fruits
     @EnvironmentObject var modelData: ModelData
-    
     @State private var showingModal = false
-    
-    
+    @State private var key = ""
+
     var body: some View {
-        
-        /*
-         VStack {
-         Text(textName)
-         Text(textName)
-         Text(textName)
-         HStack {
-         Text(textName)
-         Text(textName)
-         Text(textName)
-         }
-         TextField("名前を入力", text: $name)
-         .textFieldStyle(RoundedBorderTextFieldStyle())
-         .multilineTextAlignment(.center)
-         Button("名前変更ボタン") {
-         if name == "" {
-         textName = "Hello world!"
-         } else {
-         textName = name
-         }
-         }
-         
-         */
         VStack{
             NavigationView{
                 List {
@@ -50,21 +23,9 @@ struct ContentView: View {
                             Text(modelData.fruits[index].name)
                         }
                     }
-                    .swipeActions(edge: .trailing, allowsFullSwipe: true) {
-                        Button {
-                            print()
-                        } label: {
-                            Text("削除")
-                        }
-                        .tint(.red)
-                    }
-                    // .onDelete(perform: rowRemove)
+                    .onDelete(perform: rowRemove)
                 }
             }
-            /*func rowRemove(offsets: IndexSet) {
-             modelData.fruits.remove(atOffsets: offsets)
-             }
-             */
             Button(action: {
                 self.showingModal.toggle()
             }) {
@@ -74,10 +35,32 @@ struct ContentView: View {
                     Text("新規")
                     Spacer()
                 }.sheet(isPresented: $showingModal) {
-                    ModalView()
+                    AddFruit()
                 }
             }
         }
+    }
+    
+    
+    func rowRemove(offsets: IndexSet) {
+        var fruits: Fruit
+        var fruitIndex: Int{
+            modelData.fruits.firstIndex(where: { $0.name == fruits.name })!
+        }
+      
+        let url = URL(string: "https://us-central1-fruitsapi.cloudfunctions.net/fruits/\(modelData.fruits[fruitIndex].key)")!  //URLを生成
+        var request = URLRequest(url: url)//Requestを生成
+        request.httpMethod = "DELETE"
+        
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in  //非同期で通信を行う
+            guard let data = data else { return }
+            do {
+                print("--------------------posted")
+            } catch {
+                fatalError("Couldn't parse as \(Fruit.self):\n\(error)")
+            }
+        }
+        task.resume()
     }
 }
 
@@ -88,17 +71,5 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .environmentObject(modelData)
-    }
-}
-
-struct ModalView: View {
-    var body: some View {
-        Text("Modal View.")
-    }
-}
-
-struct ModalView_Previews: PreviewProvider {
-    static var previews: some View {
-        ModalView()
     }
 }
