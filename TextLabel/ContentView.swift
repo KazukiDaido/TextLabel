@@ -11,7 +11,7 @@ struct ContentView: View {
     @EnvironmentObject var modelData: ModelData
     @State private var showingModal = false
     @State private var key = ""
-
+    
     var body: some View {
         VStack{
             NavigationView{
@@ -21,55 +21,76 @@ struct ContentView: View {
                             FruitDetail(fruits: modelData.fruits[index])
                         } label: {
                             Text(modelData.fruits[index].name)
+                                .swipeActions(edge: .trailing) {
+                                    Button(role: .destructive) {
+                                        let url = URL(string: "https://us-central1-fruitsapi.cloudfunctions.net/fruits/\(modelData.fruits[index].key)")!  //URLを生成
+                                        var request = URLRequest(url: url)//Requestを生成
+                                        request.httpMethod = "DELETE"
+                                        
+                                        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in  //非同期で通信を行う
+                                            guard let data = data else { return }
+                                            do {
+                                                print("--------------------posted")
+                                            } catch {
+                                                fatalError("Couldn't parse as \(Fruit.self):\n\(error)")
+                                            }
+                                        }
+                                        task.resume()
+                                    } label: {
+                                        Image(systemName: "trash.fill")
+                                    }
+                                }
                         }
+                        
                     }
-                    .onDelete(perform: rowRemove)
                 }
-            }
-            Button(action: {
-                self.showingModal.toggle()
-            }) {
-                HStack{
-                    Image(systemName: "plus")
-                        .padding(.leading)
-                    Text("新規")
-                    Spacer()
-                }.sheet(isPresented: $showingModal) {
-                    AddFruit()
+                
+                Button(action: {
+                    self.showingModal.toggle()
+                }) {
+                    HStack{
+                        Image(systemName: "plus")
+                            .padding(.leading)
+                        Text("新規")
+                        Spacer()
+                    }.sheet(isPresented: $showingModal) {
+                        AddFruit()
+                    }
                 }
             }
         }
     }
-    
-    
-    func rowRemove(offsets: IndexSet) {
-        var fruits: Fruit
-        var fruitIndex: Int{
-            modelData.fruits.firstIndex(where: { $0.name == fruits.name })!
-        }
-      
-        let url = URL(string: "https://us-central1-fruitsapi.cloudfunctions.net/fruits/\(modelData.fruits[fruitIndex].key)")!  //URLを生成
-        var request = URLRequest(url: url)//Requestを生成
-        request.httpMethod = "DELETE"
         
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in  //非同期で通信を行う
-            guard let data = data else { return }
-            do {
-                print("--------------------posted")
-            } catch {
-                fatalError("Couldn't parse as \(Fruit.self):\n\(error)")
-            }
+        /*
+         func rowRemove(offsets: IndexSet) {
+         var fruits: Fruit
+         var fruitIndex: Int{
+         modelData.fruits.firstIndex(where: { $0.name == fruits.name })!
+         }
+         
+         let url = URL(string: "https://us-central1-fruitsapi.cloudfunctions.net/fruits/\(modelData.fruits[fruitIndex].key)")!  //URLを生成
+         var request = URLRequest(url: url)//Requestを生成
+         request.httpMethod = "DELETE"
+         
+         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in  //非同期で通信を行う
+         guard let data = data else { return }
+         do {
+         print("--------------------posted")
+         } catch {
+         fatalError("Couldn't parse as \(Fruit.self):\n\(error)")
+         }
+         }
+         task.resume()
+         }
+         */
+    }
+    
+    
+    
+    struct ContentView_Previews: PreviewProvider {
+        static let modelData = ModelData()
+        static var previews: some View {
+            ContentView()
+                .environmentObject(modelData)
         }
-        task.resume()
     }
-}
-
-
-
-struct ContentView_Previews: PreviewProvider {
-    static let modelData = ModelData()
-    static var previews: some View {
-        ContentView()
-            .environmentObject(modelData)
-    }
-}
