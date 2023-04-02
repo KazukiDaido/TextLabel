@@ -24,19 +24,26 @@ struct FruitDetail: View {
     var body: some View {
         
         
-        HStack{
+        VStack{
             TextField("name", text: $name).onAppear(){
                 self.name = modelData.fruits[fruitIndex].name
             }
             TextField("value", text: $value).onAppear(){
                 self.value = "\(modelData.fruits[fruitIndex].value)"
             }
-            SaleToggle(fruits: modelData.fruits[fruitIndex])
+            SaleToggle(fruits: modelData.fruits[fruitIndex]).onAppear(){
+                self.flag = modelData.fruits[fruitIndex].sale
+            }
+            Button("完了"){
+                register()
+                modelData.load()
+            }
         }
+        
     }
     
     func register() {
-        let url = URL(string: "https://us-central1-fruitsapi.cloudfunctions.net/fruits")!  //URLを生成
+        let url = URL(string: "https://us-central1-fruitsapi.cloudfunctions.net/fruits/\(modelData.fruits[fruitIndex].key)")!  //URLを生成
         var request = URLRequest(url: url)//Requestを生成
         request.httpMethod = "PUT"
         let data: [String: Any] = ["name": name, "sale": flag, "value": Int(value)]
