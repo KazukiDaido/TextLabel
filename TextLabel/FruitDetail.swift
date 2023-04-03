@@ -16,7 +16,7 @@ struct FruitDetail: View {
     var fruits: Fruit
     
     var fruitIndex: Int{
-        modelData.fruits.firstIndex(where: { $0.name == fruits.name })!
+        modelData.fruits.firstIndex(where: { $0.key == fruits.key })!
     }
     
     
@@ -31,12 +31,12 @@ struct FruitDetail: View {
             TextField("value", text: $value).onAppear(){
                 self.value = "\(modelData.fruits[fruitIndex].value)"
             }
-            SaleToggle(fruits: modelData.fruits[fruitIndex]).onAppear(){
+            SaleToggle(flag: $flag).onAppear(){
                 self.flag = modelData.fruits[fruitIndex].sale
             }
             Button("完了"){
+                
                 register()
-                modelData.load()
             }
         }
         
@@ -63,6 +63,7 @@ struct FruitDetail: View {
                  }
                  */
                 print("--------------------posted")
+                modelData.load()
             } catch {
                 fatalError("Couldn't parse as \(Fruit.self):\n\(error)")
             }
