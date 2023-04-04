@@ -25,19 +25,21 @@ struct FruitDetail: View {
         
         
         VStack{
-            TextField("name", text: $name).onAppear(){
-                self.name = modelData.fruits[fruitIndex].name
-            }
-            TextField("value", text: $value).onAppear(){
+            TextField("name", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .onAppear(){
+                    self.name = modelData.fruits[fruitIndex].name
+                }
+                
+            TextField("value", text: $value)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .onAppear(){
                 self.value = "\(modelData.fruits[fruitIndex].value)"
             }
             SaleToggle(flag: $flag).onAppear(){
                 self.flag = modelData.fruits[fruitIndex].sale
             }
-            Button("完了"){
-                
-                register()
-            }
+            
         }
         
     }

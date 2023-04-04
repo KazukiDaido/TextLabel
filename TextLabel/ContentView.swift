@@ -42,18 +42,18 @@ struct ContentView: View {
                         }
                     }
                     
-                    Button(action: {
-                        self.showingModal.toggle()
-                    }) {
-                        HStack{
-                            Image(systemName: "plus")
-                                .padding(.leading)
-                            Text("新規")
-                            Spacer()
-                        }.sheet(isPresented: $showingModal) {
-                            AddFruit()
-                        }
-                    }
+                }
+            }
+            Button(action: {
+                self.showingModal.toggle()
+            }) {
+                HStack{
+                    Image(systemName: "plus.circle.fill")
+                        .padding(.leading)
+                    Text("新規")
+                    Spacer()
+                }.sheet(isPresented: $showingModal) {
+                    AddFruit()
                 }
             }
         }

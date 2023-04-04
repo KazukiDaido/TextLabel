@@ -16,11 +16,13 @@ struct AddFruit: View {
     var body: some View {
         VStack{
             TextField("name", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
             TextField("value", text: $value)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
             Toggle("sale", isOn: $flag)
             Button("完了"){
                 register()
-                modelData.load()
+                
             }
         }
     }
@@ -37,15 +39,16 @@ struct AddFruit: View {
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in  //非同期で通信を行う
             guard let data = data else { return }
-             do {
-               /* let decoder = JSONDecoder()
-                let response = try decoder.decode(FruitData.self, from: data)
-                
-                DispatchQueue.main.async {
-                    self.fruits = response.data.reversed()
-                }
-                */
+            do {
+                /* let decoder = JSONDecoder()
+                 let response = try decoder.decode(FruitData.self, from: data)
+                 
+                 DispatchQueue.main.async {
+                 self.fruits = response.data.reversed()
+                 }
+                 */
                 print("--------------------posted")
+                modelData.load()
             } catch {
                 fatalError("Couldn't parse as \(Fruit.self):\n\(error)")
             }
