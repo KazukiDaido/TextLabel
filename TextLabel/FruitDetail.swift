@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FruitDetail: View {
+    @Environment(\.presentationMode) private var presentationMode
     @EnvironmentObject var modelData: ModelData
     @State private var name = ""
     @State private var value = ""
@@ -44,6 +45,7 @@ struct FruitDetail: View {
             }
             Button("完了"){
                 register()
+                presentationMode.wrappedValue.dismiss()
             }
         }
         
@@ -53,13 +55,12 @@ struct FruitDetail: View {
         let url = URL(string: "https://us-central1-fruitsapi.cloudfunctions.net/fruits/\(modelData.fruits[fruitIndex].key)")!  //URLを生成
         var request = URLRequest(url: url)//Requestを生成
         request.httpMethod = "PUT"
-        let data: [String: Any] = ["name": name, "sale": flag, "value": Int(value)]
+        let data: [String: Any] = ["name": name, "sale": flag, "value": value]
         let httpBody = try? JSONSerialization.data(withJSONObject: data, options: [])
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type") //bodyはJson形式であることを明示する
         request.httpBody = httpBody
         
-        
-        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in  //非同期で通信を行う
+        let task = URLSession.shared.dataTask(with: request) { ( data, response, error) in  //非同期で通信を行う
             guard let data = data else { return }
             do {
                 /* let decoder = JSONDecoder()
@@ -71,6 +72,7 @@ struct FruitDetail: View {
                  */
                 print("--------------------posted")
                 modelData.load()
+                
             } catch {
                 fatalError("Couldn't parse as \(Fruit.self):\n\(error)")
             }

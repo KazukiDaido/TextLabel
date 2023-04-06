@@ -8,22 +8,30 @@
 import SwiftUI
 
 struct AddFruit: View {
+    @Environment(\.presentationMode) private var presentationMode
     @State private var name = ""
     @State private var value = ""
     @State private var flag = true
     @EnvironmentObject var modelData: ModelData
     
     var body: some View {
-        VStack{
-            TextField("name", text: $name)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            TextField("value", text: $value)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
-            Toggle("sale", isOn: $flag)
+        VStack(alignment: .trailing){
             Button("完了"){
                 register()
                // self.dismiss(animated: true, completion: nil)
-            }
+            }   .padding()
+        }
+        VStack{
+            
+            TextField("name", text: $name)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            TextField("value", text: $value)
+                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .padding()
+            Toggle("sale", isOn: $flag)
+                .padding()
+            
         }
     }
     
@@ -31,14 +39,14 @@ struct AddFruit: View {
         let url = URL(string: "https://us-central1-fruitsapi.cloudfunctions.net/fruits")!  //URLを生成
         var request = URLRequest(url: url)//Requestを生成
         request.httpMethod = "POST"
-        let data: [String: Any] = ["name": name, "sale": flag, "value": Int(value)]
+        let data: [String: Any] = ["name": name, "sale": flag, "value": value]
         let httpBody = try? JSONSerialization.data(withJSONObject: data, options: [])
         request.setValue("Application/json", forHTTPHeaderField: "Content-Type") //bodyはJson形式であることを明示する
         request.httpBody = httpBody
         
         
         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in  //非同期で通信を行う
-            guard let data = data else { return }
+            guard let _ = data else { return }
             do {
                 /* let decoder = JSONDecoder()
                  let response = try decoder.decode(FruitData.self, from: data)
@@ -49,6 +57,7 @@ struct AddFruit: View {
                  */
                 print("--------------------posted")
                 modelData.load()
+                presentationMode.wrappedValue.dismiss()
             } catch {
                 fatalError("Couldn't parse as \(Fruit.self):\n\(error)")
             }
