@@ -27,7 +27,7 @@ struct ContentView: View {
                                         request.httpMethod = "DELETE"
                                         
                                         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in  //非同期で通信を行う
-                                            guard let data = data else { return }
+                                            guard let _ = data else { return }
                                             do {
                                                 print("--------------------posted")
                                             } catch {
