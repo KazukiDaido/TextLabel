@@ -22,7 +22,7 @@ struct AddFruit: View {
             Toggle("sale", isOn: $flag)
             Button("完了"){
                 register()
-                
+               // self.dismiss(animated: true, completion: nil)
             }
         }
     }

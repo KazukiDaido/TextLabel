@@ -36,10 +36,15 @@ struct FruitDetail: View {
                 .onAppear(){
                 self.value = "\(modelData.fruits[fruitIndex].value)"
             }
-            SaleToggle(flag: $flag).onAppear(){
-                self.flag = modelData.fruits[fruitIndex].sale
+            HStack{
+                Text("sale")
+                SaleToggle(flag: $flag).onAppear(){
+                    self.flag = modelData.fruits[fruitIndex].sale
+                }
             }
-            
+            Button("完了"){
+                register()
+            }
         }
         
     }
